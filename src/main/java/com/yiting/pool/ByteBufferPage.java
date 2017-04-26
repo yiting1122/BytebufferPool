@@ -91,4 +91,12 @@ public class ByteBufferPage {
 			chunkAllocateTrack.clear(startChunk + i);
 		}
 	}
+	
+	/**
+	 * 统计page使用的容量
+	 * @return
+	 */
+	public int size() {
+		return chunkAllocateTrack.cardinality() * chunkSize;
+	}
 }

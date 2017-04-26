@@ -15,5 +15,4 @@ public interface BufferPool {
 	int getSharedOptsCount();
 	int getChunkSize();
 	ConcurrentHashMap<Long,Long> getNetDirectMemoryUsage();
-	BufferArray allocateArray();
 }

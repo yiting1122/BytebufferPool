@@ -40,6 +40,7 @@ public class DirectByteBufferPool implements BufferPool {
 		this.memoryUsage = new ConcurrentHashMap<Long, Long>();
 	}
 	
+	
 	/**
 	 * buffer 扩容
 	 *
@@ -123,31 +124,44 @@ public class DirectByteBufferPool implements BufferPool {
 		}
 	}
 	
+	public ConcurrentHashMap<Long,Long> getNetDirectMemoryUsage() {
+		return memoryUsage;
+	}
+	
+	public int getPageSize() {
+		return pageSize;
+	}
+	
+	public short getPageCount() {
+		return pageCount;
+	}
+	
 	public long capacity() {
+		return (long) pageSize * pageCount;
+	}
+	
+	public long size(){
+		long size = 0;
+		for (int i = 0; i < pageCount; i++) {
+			size += allPages[i].size();
+		}
+		return size;
+	}
+	
+	//TODO
+	public  int getSharedOptsCount(){
 		return 0;
 	}
 	
-	public long size() {
-		return 0;
+	public ByteBufferPage[] getAllPages() {
+		return allPages;
 	}
 	
 	public int getConReadBufferChunk() {
-		return 0;
-	}
-	
-	public int getSharedOptsCount() {
-		return 0;
+		return conReadBufferChunk;
 	}
 	
 	public int getChunkSize() {
-		return 0;
-	}
-	
-	public ConcurrentHashMap<Long, Long> getNetDirectMemoryUsage() {
-		return null;
-	}
-	
-	public BufferArray allocateArray() {
-		return null;
+		return chunkSize;
 	}
 }
